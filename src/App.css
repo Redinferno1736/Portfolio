@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+body {
+    background-color: #222222;
+    background-image:url("https://www.transparenttextures.com/patterns/stardust.png");
+}
+
+.fs{
+    font-family: 'Montserrat';
+    color: #7e8885;
+    font-size:3.7vw;
+    font-weight: bold;
+    background-color: #232927;
+    height: 10vh;
+    align-items: center;
+    display: flex;
+}
+
+.spotlight-text {
+    font-family: 'Montserrat';
+    font-size: 10vw;
+    position: relative;
+    color: #191818;
+    transition: background 1s, color 1s;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: initial;
+    background-clip: text;
+    background: none;
+    --x: 10%;
+    --y: 10%;
+}
+
+.spotlight-text:hover {
+    background: radial-gradient(circle at var(--x) var(--y),
+        #137062 1%,
+        #191818 9% 30px);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #191818;
+}
+
+.tag{
+    font-family: "Montserrat", sans-serif;
+    color: #B0B7B5;
+    padding: 20px;
+}
+
+.card{
+    font-family: "Roboto";
+}
