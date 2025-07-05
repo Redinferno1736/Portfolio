@@ -12,9 +12,9 @@ body {
     font-size:3.7vw;
     font-weight: bold;
     background-color: #232927;
-    height: 10vh;
     align-items: center;
     display: flex;
+    justify-content: center;
 }
 
 .spotlight-text {
