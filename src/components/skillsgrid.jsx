@@ -1,32 +1,37 @@
 import React from "react";
-
-// Example icons (replace with your own or from a library)
-import { FaReact, FaNodeJs, FaPhp, FaSass, FaBootstrap, FaGithub, FaNpm, FaWordpress } from "react-icons/fa";
-import { SiTypescript, SiVite, SiWebpack, SiPrisma, SiTailwindcss, SiHtml5, SiCss3, SiSocketdotio, SiDirectus, SiVisualstudiocode } from "react-icons/si";
-import { DiJavascript1 } from "react-icons/di";
+import { FaReact, FaNodeJs, FaBootstrap, FaGithub, FaNpm,FaDatabase } from "react-icons/fa";
+import { 
+  SiVite, SiFlask, SiTailwindcss, SiHtml5, SiCss3, SiNextdotjs, 
+  SiGit, SiMongodb, SiPython, SiC 
+} from "react-icons/si";
+import { DiJavascript1, DiJava } from "react-icons/di";
+import { VscVscode } from "react-icons/vsc";
 
 const skillsData = [
   {
+    category: "Programming Languages",
+    skills: [
+      { name: "Java", icon: <DiJava /> },
+      { name: "Python", icon: <SiPython /> },
+      { name: "C", icon: <SiC /> },
+      { name: "JavaScript", icon: <DiJavascript1 /> },
+    ],
+  },
+  {
     category: "Backend",
     skills: [
-      { name: "Typescript", icon: <SiTypescript /> },
-      { name: "NextJS", icon: <FaReact /> },
-      { name: "Node", icon: <FaNodeJs /> },
-      { name: "PHP", icon: <FaPhp /> },
+      { name: "Flask", icon: <SiFlask /> },
+      { name: "NextJS", icon: <SiNextdotjs /> },
+      { name: "Node.js", icon: <FaNodeJs /> },
       { name: "Vite", icon: <SiVite /> },
-      { name: "Webpack", icon: <SiWebpack /> },
-      { name: "Prisma", icon: <SiPrisma /> },
     ],
   },
   {
     category: "Frontend",
     skills: [
       { name: "React", icon: <FaReact /> },
-      { name: "Typescript", icon: <SiTypescript /> },
-      { name: "Javascript", icon: <DiJavascript1 /> },
       { name: "Tailwind CSS", icon: <SiTailwindcss /> },
       { name: "Bootstrap", icon: <FaBootstrap /> },
-      { name: "SASS", icon: <FaSass /> },
       { name: "HTML", icon: <SiHtml5 /> },
       { name: "CSS", icon: <SiCss3 /> },
     ],
@@ -34,12 +39,17 @@ const skillsData = [
   {
     category: "Tools",
     skills: [
-      { name: "VS Code", icon: <SiVisualstudiocode /> },
-      { name: "Github", icon: <FaGithub /> },
-      { name: "Wordpress", icon: <FaWordpress /> },
-      { name: "Directus", icon: <SiDirectus /> },
-      { name: "NPM", icon: <FaNpm /> },
-      { name: "Socket.io", icon: <SiSocketdotio /> },
+      { name: "Git", icon: <SiGit /> },
+      { name: "VS Code", icon: <VscVscode /> },
+      { name: "GitHub", icon: <FaGithub /> },
+      { name: "npm", icon: <FaNpm /> },
+    ],
+  },
+  {
+    category: "Database Management",
+    skills: [
+      { name: "MongoDB", icon: <SiMongodb /> },
+      { name: "SQLite", icon: <FaDatabase /> },
     ],
   },
 ];
@@ -86,8 +96,8 @@ function SkillsGrid({ skills = skillsData }) {
           <div style={skillsRowStyle}>
             {group.skills.map((skill) => (
               <div key={skill.name} style={skillBoxStyle}>
-                <span style={{ fontSize: "1.5rem" }}>{skill.icon}</span>
-                <span>{skill.name}</span>
+                <span style={{ fontSize: "1.5rem", color:"#137062"}}>{skill.icon}</span>
+                <span >{skill.name}</span>
               </div>
             ))}
           </div>
@@ -96,6 +106,5 @@ function SkillsGrid({ skills = skillsData }) {
     </div>
   );
 }
-
 
 export default SkillsGrid;

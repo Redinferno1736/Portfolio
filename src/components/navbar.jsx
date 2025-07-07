@@ -16,15 +16,19 @@ const navbarStyle = {
   zIndex: 1000,
 };
 
-function Navbar({ onAboutClick }) {
+function Navbar({ onAboutClick, onSkillsClick, onProjectsClick }) {
   return (
     <nav className="flex align-middle justify-between" style={navbarStyle}>
       <h1 style={{ margin: 0, fontSize: "2rem", fontFamily: "Allura", color: "white" }}>Pranav D P</h1>
       <div className="flex gap-4 align-middle justify-center" style={{ fontFamily: "Poppins", color: "#D6D6D6" }}>
-        <a href="#">Projects</a>
-        <a href="#">Skills</a>
-        <a href="#about" onClick={(e) => { e.preventDefault(); onAboutClick(); }} style={{ color: "#D6D6D6", cursor: "pointer" }}>
+        <a href="about" onClick={(e) => { e.preventDefault(); onAboutClick(); }} style={{ color: "#D6D6D6", cursor: "pointer" }}>
           About
+        </a>
+        <a href="skills" onClick={(e) => { e.preventDefault(); onSkillsClick(); }} style={{ color: "#D6D6D6", cursor: "pointer" }}>
+          Skills
+        </a>
+        <a href="projects" onClick={(e) => { e.preventDefault(); onProjectsClick(); }} style={{ color: "#D6D6D6", cursor: "pointer" }}>
+          Projects
         </a>
       </div>
     </nav>
