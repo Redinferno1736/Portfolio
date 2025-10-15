@@ -2,24 +2,27 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css'
 import Navbar from "./components/navbar";
 import SpotlightText from './components/spotlight';
-import GlassIcons from './components/glassicons';
+import MinimalIcons from './components/minimalicons';
 import TextPressure from './components/textpressure';
 import CombinedCanvas from './components/combinedcanvas';
 import AnimatedAboutSection from './components/animatedabout';
 import SkillsGrid from './components/skillsgrid';
 import ProjectsSection from './components/projectsection';
 import TechSetLogo from './components/techset';
+import { motion } from 'framer-motion';
 import { FiFileText } from "react-icons/fi";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { Helix } from 'ldrs/react'
 import 'ldrs/react/Helix.css'
+import ContactSection from './components/contactsection';
 
 function App() {
   const [loading, setLoading] = useState(true);
   const aboutSectionRef = useRef(null);
   const skillsRef = useRef(null);
   const projectsRef = useRef(null);
+  const contactRef = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500);
@@ -45,7 +48,9 @@ function App() {
         <div className="flex justify-center items-center">
           <Navbar onAboutClick={() => aboutSectionRef.current.scrollIntoView({ behavior: 'smooth' })}
             onSkillsClick={() => skillsRef.current.scrollIntoView({ behavior: 'smooth' })}
-            onProjectsClick={() => projectsRef.current.scrollIntoView({ behavior: 'smooth' })} />
+            onProjectsClick={() => projectsRef.current.scrollIntoView({ behavior: 'smooth' })}
+            onContactClick={() => contactRef.current.scrollIntoView({ behavior: 'smooth' })} />
+
         </div>
         <div className="hero mt-35 flex flex-col justify-center items-center h-3/4 w-screen">
           <div style={{ position: 'relative', height: '90px' }} className='fs w-1/4'>
@@ -74,7 +79,7 @@ function App() {
         <CombinedCanvas />
         <AnimatedAboutSection />
         <div style={{ height: '200px' }} className="w-full grid place-items-center absolute top-[170vh] z-30">
-          <GlassIcons items={items} className="custom-class" />
+          <MinimalIcons items={items} className="custom-class" />
         </div>
       </div>
       <div ref={skillsRef} className='h-[100vh]' >
@@ -89,14 +94,24 @@ function App() {
           </div>
         </div>
       </div>
-      <div ref={projectsRef} >
-        <div className='absolute top-[310vh] h-[90vh] w-[95vw] z-40 flex pl-[50px]'>
-          <div className="cont flex items-center justify-center gap-[600px]">
+      <div ref={projectsRef} className="w-full py-22 flex justify-center">
+        <div className="flex flex-col md:flex-row items-center gap-35 w-full justify-between">
+          <div className="md:w-1/3 w-full flex pl-10 md:justify-start justify-center mb-8 md:mb-0">
             <TechSetLogo first="FEATURED" second="PROJECTS" />
+          </div>
+          <div className="md:w-2/3 w-full flex md:justify-end justify-center">
             <ProjectsSection />
           </div>
         </div>
       </div>
+
+
+      <div ref={contactRef} className="w-full flex justify-center ">
+        <div className="w-full">
+          <ContactSection />
+        </div>
+      </div>
+
     </>
   )
 }
