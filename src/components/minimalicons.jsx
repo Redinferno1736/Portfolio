@@ -6,9 +6,9 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
-      delayChildren: 0.3
-    }
-  }
+      delayChildren: 0.3,
+    },
+  },
 };
 
 const itemVariants = {
@@ -16,14 +16,14 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4 }
-  }
+    transition: { duration: 0.4 },
+  },
 };
 
-const MinimalIcons = ({ items, className }) => {
+const MinimalIcons = ({ items, className, isDark }) => {
   return (
     <motion.div
-      className={`flex gap-6 items-center justify-center ${className || ""}`}
+      className={`flex gap-6 items-center justify-center ${className || ''}`}
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
@@ -44,17 +44,21 @@ const MinimalIcons = ({ items, className }) => {
             width: '60px',
             height: '60px',
             borderRadius: '50%',
-            background: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            background: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.006)',
+            border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.2)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#B0B7B5',
+            color: isDark ? '#B0B7B5' : '#333333',
             fontSize: '24px',
             transition: 'all 0.3s ease',
             backdropFilter: 'blur(10px)',
           }}
-          className="hover:bg-[rgba(19,112,98,0.1)] hover:border-[#137062] hover:text-[#137062] hover:shadow-[0_8px_20px_rgba(19,112,98,0.3)]"
+          className={
+            isDark
+              ? 'hover:bg-[rgba(19,112,98,0.1)] hover:border-[#137062] hover:text-[#137062] hover:shadow-[0_8px_20px_rgba(19,112,98,0.3)]'
+              : 'hover:bg-[rgba(59,157,157,0.1)] hover:border-[#3b9d9d] hover:text-[#3b9d9d] hover:shadow-[0_8px_20px_rgba(59,157,157,0.3)]'
+          }
         >
           {item.icon}
         </motion.a>

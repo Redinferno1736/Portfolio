@@ -1,9 +1,8 @@
-// src/components/AnimatedAboutSection.jsx
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import armas from '../assets/pic.jpg';
 
-export default function AnimatedAboutSection() {
+export default function AnimatedAboutSection({ isDark }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -19,9 +18,9 @@ export default function AnimatedAboutSection() {
       >
         <img src={armas} alt="Profile" className="w-full h-full object-cover" />
       </motion.div>
-      {/* Text Animation */}
+      {/* Text Animation with conditional color */}
       <motion.div
-        className="card text-white w-[40vw]"
+        className={`${isDark ? "text-white" : "text-[#191818]"} card w-[40vw]`}
         initial={{ opacity: 0, y: 40 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: 0.7, duration: 0.9, ease: "easeOut" }}

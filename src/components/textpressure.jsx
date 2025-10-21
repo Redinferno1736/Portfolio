@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 const TextPressure = ({
   text = 'Compressa',
   fontFamily = 'Compressa VF',
-  // This font is just an example, you should not use it in commercial projects.
   fontUrl = 'https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2',
 
   width = true,
@@ -15,13 +14,14 @@ const TextPressure = ({
   stroke = false,
   scale = false,
 
-  textColor = '#FFFFFF',
-  strokeColor = '#FF0000',
+  isDark = true, // Added isDark prop with default true
+
+  textColor,
+  strokeColor,
   strokeWidth = 2,
   className = '',
 
   minFontSize = 24,
-
 }) => {
   const containerRef = useRef(null);
   const titleRef = useRef(null);
@@ -33,6 +33,10 @@ const TextPressure = ({
   const [fontSize, setFontSize] = useState(minFontSize);
   const [scaleY, setScaleY] = useState(1);
   const [lineHeight, setLineHeight] = useState(1);
+
+  // Default colors based on isDark if not provided explicitly
+  const effectiveTextColor = textColor ?? (isDark ? '#FFFFFF' : '#191818');
+  const effectiveStrokeColor = strokeColor ?? (isDark ? '#FF0000' : '#b03737');
 
   const chars = text.split('');
 
@@ -144,10 +148,7 @@ const TextPressure = ({
   }, [width, weight, italic, alpha, chars.length]);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full h-full overflow-hidden bg-transparent"
-    >
+    <div ref={containerRef} className="relative w-full h-full overflow-hidden bg-transparent">
       <style>{`
         @font-face {
           font-family: '${fontFamily}';
@@ -156,7 +157,7 @@ const TextPressure = ({
         }
         .stroke span {
           position: relative;
-          color: ${textColor};
+          color: ${effectiveTextColor};
         }
         .stroke span::after {
           content: attr(data-char);
@@ -166,14 +167,15 @@ const TextPressure = ({
           color: transparent;
           z-index: -1;
           -webkit-text-stroke-width: ${strokeWidth}px;
-          -webkit-text-stroke-color: ${strokeColor};
+          -webkit-text-stroke-color: ${effectiveStrokeColor};
         }
       `}</style>
 
       <h1
         ref={titleRef}
-        className={`text-pressure-title ${className} ${flex ? 'flex justify-between' : ''
-          } ${stroke ? 'stroke' : ''} uppercase text-center`}
+        className={`text-pressure-title ${className} ${flex ? 'flex justify-between' : ''} ${
+          stroke ? 'stroke' : ''
+        } uppercase text-center`}
         style={{
           fontFamily,
           fontSize: fontSize,
@@ -182,16 +184,11 @@ const TextPressure = ({
           transformOrigin: 'center top',
           margin: 0,
           fontWeight: 100,
-          color: stroke ? undefined : textColor,
+          color: stroke ? undefined : effectiveTextColor,
         }}
       >
         {chars.map((char, i) => (
-          <span
-            key={i}
-            ref={(el) => (spansRef.current[i] = el)}
-            data-char={char}
-            className="inline-block"
-          >
+          <span key={i} ref={(el) => (spansRef.current[i] = el)} data-char={char} className="inline-block">
             {char}
           </span>
         ))}

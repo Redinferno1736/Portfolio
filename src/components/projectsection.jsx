@@ -12,43 +12,43 @@ const containerVariants = {
   }
 };
 
-export default function ProjectsSection() {
+export default function ProjectsSection({isDark}) {
   const projects = [
     {
-      title: "Hackarena",
-      description: "Text-guided image editing by manipulating diffusion path without any training.",
-      githubLink: "https://github.com/yourusername/project1",
-      siteLink: "https://project1.example.com"
+      title: "FabrAIc",
+      description: "AI-powered website that stores all the clothes in your wardrobe and generates outfit combinations.",
+      githubLink: "https://github.com/yourusername/fabraic",
+      siteLink: "https://fabraic.example.com"
     },
     {
       title: "CareBridgeAI",
-      description: "AI-powered medical chatbot with multilingual support and voice interaction.",
-      githubLink: "https://github.com/yourusername/project2",
-      siteLink: "https://project2.example.com"
+      description: "An AI chatbot designed for refugees providing immediate medical assistance and helping NGOs contact them efficiently.",
+      githubLink: "https://github.com/yourusername/carebridgeai",
+      siteLink: "https://carebridgeai.example.com"
+    },
+    {
+      title: "HackArena",
+      description: "A platform to host and attend hackathons, offering interfaces for uploading hackathon details and submitting projects as teams.",
+      githubLink: "https://github.com/yourusername/hackarena",
+      siteLink: "https://hackarena.example.com"
     },
     {
       title: "Portfolio Website",
-      description: "Modern, interactive portfolio with smooth animations and dynamic effects.",
-      githubLink: "https://github.com/yourusername/project3",
-      siteLink: "https://project3.example.com"
+      description: "A personal portfolio website showcasing projects, featuring smooth animations and a modern design.",
+      githubLink: "https://github.com/yourusername/portfolio",
+      siteLink: "https://portfolio.example.com"
     },
     {
-      title: "Task Manager Pro",
-      description: "Full-stack task management application with real-time collaboration features.",
-      githubLink: "https://github.com/yourusername/project4",
-      siteLink: "https://project4.example.com"
+      title: "Jarvis",
+      description: "A voice and text-operated chatbot with a user-defined personality.",
+      githubLink: "https://github.com/yourusername/jarvis",
+      siteLink: "https://jarvis.example.com"
     },
     {
-      title: "Weather Dashboard",
-      description: "Beautiful weather app with 7-day forecasts and location-based alerts.",
-      githubLink: "https://github.com/yourusername/project5",
-      siteLink: "https://project5.example.com"
-    },
-    {
-      title: "E-Commerce Platform",
-      description: "Full-featured online store with payment integration and inventory management.",
-      githubLink: "https://github.com/yourusername/project6",
-      siteLink: "https://project6.example.com"
+      title: "Marin Web App",
+      description: "A basic personal assistant that performs tasks like controlling system settings, searching the web, and playing music based on user preferences.",
+      githubLink: "https://github.com/yourusername/marin-web-app",
+      siteLink: "https://marinwebapp.example.com"
     },
   ];
 
@@ -68,6 +68,7 @@ export default function ProjectsSection() {
           description={project.description}
           githubLink={project.githubLink}
           siteLink={project.siteLink}
+          isDark={isDark}
         />
       ))}
     </motion.div>

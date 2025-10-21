@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-function Navbar({ onAboutClick, onSkillsClick, onProjectsClick, onContactClick }) {
+function Navbar({ onAboutClick, onSkillsClick, onProjectsClick, onContactClick, isDark }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
@@ -16,11 +16,13 @@ function Navbar({ onAboutClick, onSkillsClick, onProjectsClick, onContactClick }
   const navbarStyle = {
     width: "70%",
     height: "6vh",
-    backgroundColor: scrolled ? "rgba(0, 0, 0, 0.8)" : "rgba(0, 0, 0, 0.6)",
+    backgroundColor: scrolled
+      ? (isDark ? "rgba(0, 0, 0, 0.8)" : "rgba(255, 255, 255, 0.8)")
+      : (isDark ? "rgba(0, 0, 0, 0.6)" : "rgba(255, 255, 255, 0.6)"),
     backdropFilter: "blur(10px)",
     WebkitBackdropFilter: "blur(10px)",
-    borderRadius: "30px",
-    color: "white",
+    borderRadius: "10px",
+    color: isDark ? "#000000" : "#ffffff",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -29,12 +31,14 @@ function Navbar({ onAboutClick, onSkillsClick, onProjectsClick, onContactClick }
     top: 25,
     zIndex: 1000,
     transition: "all 0.3s ease",
-    border: scrolled ? "1px solid rgba(19, 112, 98, 0.3)" : "1px solid transparent",
+    border:"1px solid transparent",
   };
+    // border: scrolled ? "1px solid rgba(19, 112, 98, 0.3)" : "1px solid transparent",
+  // };
 
   const linkStyle = {
     position: "relative",
-    color: "#D6D6D6",
+    color: isDark ?  "#D6D6D6":"#000000" ,
     cursor: "pointer",
     padding: "5px 10px",
     transition: "color 0.3s ease",
@@ -48,7 +52,7 @@ function Navbar({ onAboutClick, onSkillsClick, onProjectsClick, onContactClick }
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <motion.h1
-        style={{ margin: 0, fontSize: "2rem", fontFamily: "Allura", color: "white" }}
+        style={{ margin: 0, fontSize: "2rem", fontFamily: "Allura", color: isDark ? "#ffffff" : "#000000" }}
         whileHover={{ scale: 1.05, color: "#137062" }}
         transition={{ duration: 0.2 }}
       >

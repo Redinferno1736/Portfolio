@@ -1,6 +1,6 @@
 import React from "react";
 
-const styles = {
+const getStyles = (isDark) => ({
   tech: {
     position: "absolute",
     top: "0",
@@ -9,7 +9,7 @@ const styles = {
     fontFamily: "Montserrat, Arial, sans-serif",
     fontWeight: "900",
     fontSize: "90px",
-    color: "#fff",
+    color: isDark ? "#fff" : "#191818",
     letterSpacing: "2px",
     zIndex: 2,
     textTransform: "uppercase",
@@ -26,9 +26,8 @@ const styles = {
     letterSpacing: "2px",
     zIndex: 3,
     textTransform: "uppercase",
-    WebkitTextStroke: "3px #137062",
-    textStroke: "3px #137062",
-    // The blue outline
+    WebkitTextStroke: isDark ? "3px #137062" : "3px #0c7663", // Slightly darker stroke for light mode
+    textStroke: isDark ? "3px #137062" : "3px #0c7663",
   },
   overlay: {
     position: "absolute",
@@ -38,16 +37,17 @@ const styles = {
     height: "100%",
     pointerEvents: "none",
   },
-};
+});
 
-function TechSetLogo({first,second}) {
+function TechSetLogo({ first, second, isDark }) {
+  const styles = getStyles(isDark);
+
   return (
-    <div style={{ position: "relative", width: 420, height: 180}}>
+    <div style={{ position: "relative", width: 420, height: 180 }}>
       <span style={styles.tech}>{first}</span>
       <span style={styles.set}>{second}</span>
     </div>
   );
 }
-
 
 export default TechSetLogo;

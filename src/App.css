@@ -2,51 +2,165 @@
 @import "tailwindcss";
 
 body {
-    background-color: #222222;
-    background-image:url("https://www.transparenttextures.com/patterns/stardust.png");
+  background-color: #222222;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
 }
 
-.fs{
-    font-family: 'Montserrat';
-    color: #7e8885;
-    font-size:3.7vw;
-    font-weight: bold;
-    background-color: #232927;
-    align-items: center;
-    display: flex;
-    justify-content: center;
+/* Full Stack text */
+.fs {
+  font-family: 'Montserrat';
+  color: #7e8885;
+  font-size: 3.7vw;
+  font-weight: bold;
+  background-color: #181c1f;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
+.fs-light {
+  font-family: 'Montserrat';
+  color: #7e8885;
+  font-size: 3.7vw;
+  font-weight: bold;
+  background-color: #c6d6e9; /* Light background for theme */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+/* Developer Spotlight */
 .spotlight-text {
-    font-family: 'Montserrat';
-    font-size: 10vw;
-    position: relative;
-    color: #191818;
-    transition: background 1s, color 1s;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: initial;
-    background-clip: text;
-    background: none;
-    --x: 10%;
-    --y: 10%;
+  font-family: 'Montserrat';
+  font-size: 10vw;
+  position: relative;
+  color: #191818;
+  transition: background 1s, color 1s;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: initial;
+  background-clip: text;
+  background: none;
+  --x: 10%;
+  --y: 10%;
 }
 
 .spotlight-text:hover {
-    background: radial-gradient(circle at var(--x) var(--y),
-        #137062 1%,
-        #191818 9% 30px);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: #191818;
+  background: radial-gradient(circle at var(--x) var(--y),
+    #137062 1%,
+    #191818 9% 30px);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.tag{
-    font-family: "Montserrat", sans-serif;
-    color: #B0B7B5;
-    padding: 20px;
+.dark .spotlight-text {
+  color: #191818;
+  background: none;
+  transition: background 1s, color 1s;
 }
 
-.card{
-    font-family: "Roboto";
+.dark .spotlight-text:hover {
+  background: radial-gradient(circle at var(--x) var(--y),
+    #137062 1%,
+    #191818 9% 30px);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
+/* Light mode spotlight text */
+.light .spotlight-text {
+  color: #afb9c5; /* lighter base color for light theme */
+  background: none;
+  transition: background 1s, color 1s;
+}
+
+.light .spotlight-text:hover {
+  background: radial-gradient(circle at var(--x) var(--y),
+    #137062 1%,  /* lighter teal accent */
+    #afb9c5 9% 30px);  /* darker text color for gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Tagline text */
+.tag {
+  font-family: "Montserrat", sans-serif;
+  color: #B0B7B5;
+  padding: 20px;
+}
+
+/* Cards and sections */
+.card {
+  font-family: "Roboto";
+}
+
+/* ====================== */
+/*   THEME COLOR SYSTEM   */
+/* ====================== */
+
+.light {
+  background-color: #d8e2ee !important;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+  color: #1a1a1a !important;
+}
+
+.dark {
+  background-color: #222222 !important;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+  color: #ffffff !important;
+}
+
+/* Container backgrounds */
+/* .light .card,
+.light .bg-container,
+.light .project-card,
+.light .skills-card {
+  background-color: #ffffff !important;
+  color: #191818 !important;
+  border-color: rgba(19, 112, 98, 0.25) !important;
+}
+
+.dark .card,
+.dark .bg-container,
+.dark .project-card,
+.dark .skills-card {
+  background-color: #181c1f !important;
+  color: #ffffff !important;
+} */
+
+/* Gradients */
+/* .light .bg-gradient-to-b {
+  background: linear-gradient(to bottom, #ffffff, #e6e6e6) !important;
+}
+
+.dark .bg-gradient-to-b {
+  background: linear-gradient(to bottom, #1f1f1f, #424242) !important;
+}
+
+/* Taglines and subtitles */
+/* .light .tag {
+  color: #444444 !important;
+}
+
+.dark .tag {
+  color: #B0B7B5 !important;
+} */
+
+/* TechSet text fix */
+/* .light .techset-text {
+  color: #191818 !important;
+}
+
+.light .techset-outline {
+  -webkit-text-stroke: 3px #191818 !important;
+}
+
+.dark .techset-text {
+  color: #ffffff !important;
+}
+
+.dark .techset-outline {
+  -webkit-text-stroke: 3px #137062 !important;
+}  */
