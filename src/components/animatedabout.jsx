@@ -20,10 +20,13 @@ export default function AnimatedAboutSection({ isDark }) {
       </motion.div>
       {/* Text Animation with conditional color */}
       <motion.div
-        className={`${isDark ? "text-white" : "text-[#191818]"} card w-[40vw]`}
+        className={`${isDark ? "text-[#B0B7B5]" : "text-[#333333]"} card w-[40vw]`}
         initial={{ opacity: 0, y: 40 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: 0.7, duration: 0.9, ease: "easeOut" }}
+        style={{ fontFamily: 'quicksand' ,
+          fontWeight:"700",
+        }}
       >
         Hi, I'm Pranav D P, a full stack developer passionate about building unique and efficient web applications. Over the past year, I’ve been actively creating web development projects and honing my skills across the stack. I’m also deeply interested in data structures and algorithms, and enjoy solving challenging problems with clean, impactful code. Continuous learning and exploring new technologies drive my journey as a developer.
       </motion.div>

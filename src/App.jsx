@@ -107,7 +107,7 @@ function App() {
           </SpotlightText>
           <div
             className="tag w-full flex items-center justify-center"
-            style={{ color: isDark ? "#B0B7B5" : "#333333" }}
+            style={{ color: isDark ? "#B0B7B5" : "#333333", fontFamily:"quicksand",fontWeight:"500" }}
           >
             Turning complex problems into elegant, high-performance software
           </div>

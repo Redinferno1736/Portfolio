@@ -16,12 +16,13 @@ const ProjectCard = ({ title, description, githubLink, siteLink, index, isDark }
       }}
       whileHover={{
         scale: 1.05,
-        boxShadow: isDark
-          ? "0 10px 40px rgba(19, 112, 98, 0.4)"
-          : "0 10px 35px rgba(19, 112, 98, 0.25)",
+        boxShadow:"0 10px 40px rgba(19, 112, 98, 0.4)",
+        // boxShadow: isDark
+        //   ? "0 10px 40px rgba(19, 112, 98, 0.4)"
+          // : "0 10px 35px rgba(19, 112, 98, 0.4)",
       }}
       style={{
-        backgroundColor: isDark ? "#181c1f" : "#c6d6e9",  // Baby Blue for light theme
+        backgroundColor: isDark ? "rgba(20, 24, 27, 1)" : "#c6d6e9",  // Baby Blue for light theme
         padding: "20px",
         borderRadius: "12px",
         margin: "10px",
@@ -29,8 +30,9 @@ const ProjectCard = ({ title, description, githubLink, siteLink, index, isDark }
         color: isDark ? "white" : "#191818",
         position: "relative",
         border: isDark
-          ? "1px solid rgba(19, 112, 98, 0.2)"
-          : "1px solid rgba(19, 112, 98, 0.25)",
+          ? "1px solid rgba(22, 70, 65, 0.2)"
+          : "1px solid rgba(19, 112, 98, 0.2)",
+        boxShadow: isDark ? "0 4px 10px rgba(22, 70, 65, 0.2)":'0 4px 10px rgba(19, 112, 98, 0.2)',
         transition: "background-color 0.3s ease, color 0.3s ease",
       }}
     >
@@ -39,7 +41,9 @@ const ProjectCard = ({ title, description, githubLink, siteLink, index, isDark }
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ delay: index * 0.1 + 0.2 }}
-        style={{ color: isDark ? "#ffffff" : "#191818" }}
+        style={{ color: isDark ? "#ffffff" : "#191818" ,
+          fontFamily:"poppins"
+        }}
       >
         {title}
       </motion.h3>
@@ -54,6 +58,7 @@ const ProjectCard = ({ title, description, githubLink, siteLink, index, isDark }
         style={{
           minHeight: "60px",
           color: isDark ? "#B0B7B5" : "#333333",
+          fontFamily:"quicksand",
         }}
       >
         {description}

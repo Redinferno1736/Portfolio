@@ -91,9 +91,9 @@ function SkillsGrid({ skills = skillsData, isDark }) {
   const gridStyle = {
     display: "flex",
     flexDirection: "column",
-    gap: "2rem",
+    gap: "1.8rem",
     background: isDark ? "#181c1f" : "#c6d6e9",
-    padding: "2rem",
+    padding: "1.8rem",
     borderRadius: "16px",
     color: isDark ? "#ffffff" : "#191818",
     maxWidth: "900px",
@@ -108,7 +108,7 @@ function SkillsGrid({ skills = skillsData, isDark }) {
 
   const categoryStyle = {
     marginBottom: "1rem",
-    fontFamily: "Montserrat",
+    fontFamily: "Poppins",
     color: isDark ? "#ffffff" : "#191818",
     fontWeight: "700",
   };
@@ -117,6 +117,7 @@ function SkillsGrid({ skills = skillsData, isDark }) {
     display: "flex",
     flexWrap: "wrap",
     gap: "1.5rem",
+    fontFamily: "quicksand",
   };
 
   const skillBoxStyle = (isDark) => ({

@@ -17,16 +17,18 @@ export default function ContactSection({ isDark }) {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
+            style={{fontFamily:"poppins"}}
           >
             Let's connect!
           </motion.h2>
           <motion.p
             className={`text-base md:text-lg mb-8 ${
-              isDark ? "text-gray-300" : "text-gray-700"
+              isDark ? "text-gray-300" : "text-gray-800"
             }`}
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            style={{fontFamily:"quicksand",fontWeight:"500"}}
           >
             Have an idea, question, or want to collaborate? Fill out the form or use the links below!
           </motion.p>
@@ -126,6 +128,7 @@ export default function ContactSection({ isDark }) {
                   isDark ? "bg-[#292e32] text-white placeholder-gray-400" : "bg-[#e6eef7] text-black placeholder-gray-500"
                 }`}
                 placeholder=""
+                style={{fontFamily:"poppins"}}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -138,6 +141,7 @@ export default function ContactSection({ isDark }) {
                   isDark ? "bg-[#292e32] text-white placeholder-gray-400" : "bg-[#e6eef7] text-black placeholder-gray-500"
                 }`}
                 placeholder=""
+                style={{fontFamily:"poppins"}}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -150,6 +154,7 @@ export default function ContactSection({ isDark }) {
                   isDark ? "bg-[#292e32] text-white placeholder-gray-400" : "bg-[#e6eef7] text-black placeholder-gray-500"
                 }`}
                 placeholder=""
+                style={{fontFamily:"poppins"}}
               />
             </div>
             <motion.button
@@ -161,6 +166,7 @@ export default function ContactSection({ isDark }) {
               }}
               type="submit"
               className="mt-6 mx-auto rounded w-full px-8 py-3 bg-[#137062] text-white font-bold justify-center flex items-center gap-2 text-lg transition-all"
+              style={{fontFamily:"poppins"}}
             >
               Send <FiSend />
             </motion.button>
