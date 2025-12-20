@@ -37,3 +37,6 @@ out/
 
 # Coverage reports
 coverage/
+
+.vercel
+.env*.local

@@ -1,10 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
 
 export default function ContactSection({ isDark }) {
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus('');
+
+    const formData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      message: e.target.message.value,
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        e.target.reset();
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error('Submit error:', error);
+      setStatus('error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="pt-36 pb-20 w-full flex justify-center " id="contact">
       <div className="w-full max-w-6xl px-4 flex flex-col md:flex-row items-center md:items-stretch gap-10 md:gap-16">
@@ -107,16 +144,13 @@ export default function ContactSection({ isDark }) {
             </span>
           </div>
           <motion.form
+            onSubmit={handleSubmit}
             className={`flex flex-col gap-4 rounded-xl p-6 shadow-xl shadow-[#2c3237] border-none mt-20 md:mt-32 ${
               isDark ? "bg-[#181c1f]" : "bg-[#c6d6e9]"
             }`}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("Message sent!");
-            }}
           >
             <div className="flex flex-col gap-2">
               <label className={`font-medium text-lg ${isDark ? "text-[#B0B7B5]" : "text-gray-700"}`}>Name</label>
@@ -129,6 +163,7 @@ export default function ContactSection({ isDark }) {
                 }`}
                 placeholder=""
                 style={{fontFamily:"poppins"}}
+                disabled={loading}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -142,6 +177,7 @@ export default function ContactSection({ isDark }) {
                 }`}
                 placeholder=""
                 style={{fontFamily:"poppins"}}
+                disabled={loading}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -155,6 +191,7 @@ export default function ContactSection({ isDark }) {
                 }`}
                 placeholder=""
                 style={{fontFamily:"poppins"}}
+                disabled={loading}
               />
             </div>
             <motion.button
@@ -165,11 +202,49 @@ export default function ContactSection({ isDark }) {
                 letterSpacing: 1,
               }}
               type="submit"
+              disabled={loading}
               className="mt-6 mx-auto rounded w-full px-8 py-3 bg-[#137062] text-white font-bold justify-center flex items-center gap-2 text-lg transition-all"
               style={{fontFamily:"poppins"}}
             >
-              Send <FiSend />
+              {loading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  Send <FiSend />
+                </>
+              )}
             </motion.button>
+
+            {status === 'success' && (
+              <motion.p
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className={`mt-4 p-3 rounded-lg text-center font-medium ${
+                  isDark 
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/50' 
+                    : 'bg-green-100 text-green-700 border border-green-300'
+                }`}
+              >
+                ✅ Message sent successfully! Check your email.
+              </motion.p>
+            )}
+            
+            {status === 'error' && (
+              <motion.p
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className={`mt-4 p-3 rounded-lg text-center font-medium ${
+                  isDark 
+                    ? 'bg-red-500/20 text-red-400 border border-red-500/50' 
+                    : 'bg-red-100 text-red-700 border border-red-300'
+                }`}
+              >
+                ❌ Failed to send. Please try again.
+              </motion.p>
+            )}
           </motion.form>
         </div>
       </div>
