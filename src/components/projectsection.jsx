@@ -1,76 +1,126 @@
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ProjectCard from './projectcard';
+import { projectData } from '../data/projects'; // Import your data
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2
+const ITEMS_PER_PAGE = 6;
+
+export default function ProjectsSection({ isDark }) {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
+
+  const totalPages = Math.ceil(projectData.length / ITEMS_PER_PAGE);
+
+  // Calculate the projects to display for the current page
+  const startIndex = currentPage * ITEMS_PER_PAGE;
+  const currentProjects = projectData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  const nextPage = () => {
+    if (currentPage < totalPages - 1) {
+      setDirection(1);
+      setCurrentPage((prev) => prev + 1);
     }
-  }
-};
+  };
 
-export default function ProjectsSection({isDark}) {
-  const projects = [
-    {
-      title: "FabrAIc",
-      description: "AI-powered website that stores all the clothes in your wardrobe and generates outfit combinations.",
-      githubLink: "https://github.com/yourusername/fabraic",
-      siteLink: "https://fabraic.example.com"
+  const prevPage = () => {
+    if (currentPage > 0) {
+      setDirection(-1);
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  // Animation variants for the sliding effect
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
     },
-    {
-      title: "CareBridgeAI",
-      description: "An AI chatbot designed for refugees providing immediate medical assistance and helping NGOs contact them efficiently.",
-      githubLink: "https://github.com/yourusername/carebridgeai",
-      siteLink: "https://carebridgeai.example.com"
-    },
-    {
-      title: "HackArena",
-      description: "A platform to host and attend hackathons, offering interfaces for uploading hackathon details and submitting projects as teams.",
-      githubLink: "https://github.com/yourusername/hackarena",
-      siteLink: "https://hackarena.example.com"
-    },
-    {
-      title: "Portfolio Website",
-      description: "A personal portfolio website showcasing projects, featuring smooth animations and a modern design.",
-      githubLink: "https://github.com/yourusername/portfolio",
-      siteLink: "https://portfolio.example.com"
-    },
-    {
-      title: "Jarvis",
-      description: "A voice and text-operated chatbot with a user-defined personality.",
-      githubLink: "https://github.com/yourusername/jarvis",
-      siteLink: "https://jarvis.example.com"
-    },
-    {
-      title: "Marin Web App",
-      description: "A basic personal assistant that performs tasks like controlling system settings, searching the web, and playing music based on user preferences.",
-      githubLink: "https://github.com/yourusername/marin-web-app",
-      siteLink: "https://marinwebapp.example.com"
-    },
-  ];
+    exit: (direction) => ({
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
+  };
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}
-    >
-      {projects.map((project, index) => (
-        <ProjectCard
-          key={index}
-          index={index}
-          title={project.title}
-          description={project.description}
-          githubLink={project.githubLink}
-          siteLink={project.siteLink}
-          isDark={isDark}
-        />
-      ))}
-    </motion.div>
+    <div className="w-full flex flex-col items-center justify-center relative">
+      
+      {/* Navigation Controls (Top Right or Absolute) */}
+      <div className="flex gap-4 mb-4 justify-end w-full px-6">
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 0}
+          className={`p-3 rounded-full transition-all duration-300 ${
+            currentPage === 0 
+              ? 'opacity-30 cursor-not-allowed' 
+              : 'hover:bg-[#137062] hover:text-white cursor-pointer'
+          } ${isDark ? 'text-white bg-white/10' : 'text-black bg-black/10'}`}
+        >
+          <FaChevronLeft size={20} />
+        </button>
+        <button
+          onClick={nextPage}
+          disabled={currentPage === totalPages - 1}
+          className={`p-3 rounded-full transition-all duration-300 ${
+            currentPage === totalPages - 1 
+              ? 'opacity-30 cursor-not-allowed' 
+              : 'hover:bg-[#137062] hover:text-white cursor-pointer'
+          } ${isDark ? 'text-white bg-white/10' : 'text-black bg-black/10'}`}
+        >
+          <FaChevronRight size={20} />
+        </button>
+      </div>
+
+      {/* Project Grid Container with AnimatePresence */}
+      <div className="w-full relative min-h-[650px] overflow-hidden">
+        <AnimatePresence initial={false} custom={direction} mode="wait">
+          <motion.div
+            key={currentPage}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 }
+            }}
+            className="flex flex-wrap justify-center gap-4 w-full absolute top-0"
+          >
+            {currentProjects.map((project, index) => (
+              <ProjectCard
+                key={`${currentPage}-${index}`} // Unique key ensures re-render on page change
+                index={index} // Resets delay for every page
+                title={project.title}
+                description={project.description}
+                githubLink={project.githubLink}
+                siteLink={project.siteLink}
+                isDark={isDark}
+              />
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Page Indicator */}
+      <div className="mt-5 flex gap-2">
+        {Array.from({ length: totalPages }).map((_, idx) => (
+          <div
+            key={idx}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              idx === currentPage 
+                ? 'w-8 bg-[#137062]' 
+                : `w-2 ${isDark ? 'bg-gray-600' : 'bg-gray-400'}`
+            }`}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

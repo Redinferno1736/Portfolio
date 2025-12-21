@@ -72,7 +72,7 @@ export default function ContactSection({ isDark }) {
           {/* SOCIAL LINKS */}
           <div className="flex gap-8 mt-2 px-3 items-center md:justify-start justify-center">
             <motion.a
-              href="mailto:your@email.com"
+              href="mailto:email.pranavdp@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
               className={`transition-colors text-2xl ${
@@ -83,7 +83,7 @@ export default function ContactSection({ isDark }) {
               <MdEmail />
             </motion.a>
             <motion.a
-              href="https://github.com/yourgithub"
+              href="https://github.com/Redinferno1736"
               target="_blank"
               rel="noopener noreferrer"
               className={`transition-colors text-2xl ${
@@ -94,7 +94,7 @@ export default function ContactSection({ isDark }) {
               <FaGithub />
             </motion.a>
             <motion.a
-              href="https://linkedin.com/in/yourlinkedin"
+              href="https://www.linkedin.com/in/pranav-d-p-a2100a333/"
               target="_blank"
               rel="noopener noreferrer"
               className={`transition-colors text-2xl ${

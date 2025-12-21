@@ -58,11 +58,32 @@ function App() {
   }
 
   const items = [
-    { icon: <FiFileText />, color: 'grey', label: 'Resume' },
-    { icon: <FaGithub />, color: 'grey', label: 'GitHub' },
-    { icon: <FaLinkedin />, color: 'grey', label: 'LinkedIn' },
-    { icon: <MdEmail />, color: 'grey', label: 'Email' },
-  ];
+  { 
+    icon: <FiFileText />, 
+    color: 'grey', 
+    label: 'Resume',
+    href: '/resume.pdf'
+  },
+  { 
+    icon: <FaGithub />, 
+    color: 'grey', 
+    label: 'GitHub',
+    href: 'https://github.com/Redinferno1736'
+  },
+  { 
+    icon: <FaLinkedin />, 
+    color: 'grey', 
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/pranav-d-p-a2100a333/'
+  },
+  { 
+    icon: <MdEmail />, 
+    color: 'grey', 
+    label: 'Email',
+    href: 'mailto:email.pranavdp@gmail.com'
+  },
+];
+
 
   return (
     <div className={isDark ? "dark" : "light"}>
@@ -107,7 +128,7 @@ function App() {
           </SpotlightText>
           <div
             className="tag w-full flex items-center justify-center"
-            style={{ color: isDark ? "#B0B7B5" : "#333333", fontFamily:"quicksand",fontWeight:"500" }}
+            style={{ color: isDark ? "#B0B7B5" : "#333333", fontFamily: "quicksand", fontWeight: "500" }}
           >
             Turning complex problems into elegant, high-performance software
           </div>
@@ -137,7 +158,7 @@ function App() {
 
       <div
         ref={projectsRef}
-        className="w-full py-22 flex justify-center"
+        className="w-full py-8 flex justify-center min-h-screen" // Added min-h-screen
         style={{
           background: isDark
             ? "linear-gradient(135deg,#137062 0%, #181c1f 20%,#181c1f 80%, #137062 100%)"
@@ -146,6 +167,7 @@ function App() {
           overflow: "hidden"
         }}
       >
+        {/* Background glow div remains the same... */}
         <div
           style={{
             position: 'absolute',
@@ -159,11 +181,17 @@ function App() {
             zIndex: 1
           }}
         />
-        <div className="flex flex-col md:flex-row items-center gap-70 w-full justify-between relative z-10">
-          <div className="md:w-1/3 w-full flex pl-10 md:justify-start justify-center mb-8 md:mb-0">
+
+        {/* Main Content Container */}
+        <div className="flex flex-col md:flex-row items-center gap-30 w-full justify-between relative z-10 max-w-[95vw]">
+
+          {/* Left Side: Sticky Title */}
+          <div className="md:w-1/3 w-full flex pl-10 md:justify-start justify-center mb-8 md:mb-0 md:sticky md:top-32">
             <TechSetLogo first="FEATURED" second="PROJECTS" isDark={isDark} />
           </div>
-          <div className="md:w-2/3 w-full flex md:justify-end justify-center">
+
+          {/* Right Side: Scrollable Projects */}
+          <div className="md:w-2/3 w-full flex md:justify-end justify-center pr-10">
             <ProjectsSection isDark={isDark} />
           </div>
         </div>

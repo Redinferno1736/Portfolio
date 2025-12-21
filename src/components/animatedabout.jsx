@@ -28,7 +28,7 @@ export default function AnimatedAboutSection({ isDark }) {
           fontWeight:"700",
         }}
       >
-        Hi, I'm Pranav D P, a full stack developer passionate about building unique and efficient web applications. Over the past year, I’ve been actively creating web development projects and honing my skills across the stack. I’m also deeply interested in data structures and algorithms, and enjoy solving challenging problems with clean, impactful code. Continuous learning and exploring new technologies drive my journey as a developer.
+        Hi, I’m Pranav D P — I build web apps, fight bugs, and lose sleep over edge cases. I’m passionate about full-stack development, addicted to DSA problems, and constantly chasing cleaner code and better architecture. If a problem is challenging, it has my attention.
       </motion.div>
     </div>
   );

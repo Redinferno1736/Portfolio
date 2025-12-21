@@ -32,7 +32,9 @@ const MinimalIcons = ({ items, className, isDark }) => {
       {items.map((item, index) => (
         <motion.a
           key={index}
-          href="#"
+          href={item.href} // Use the href from the item
+          target={item.href?.startsWith('http') ? '_blank' : '_self'} // Open external links in new tab
+          rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined} // Security for external links
           aria-label={item.label}
           variants={itemVariants}
           whileHover={{

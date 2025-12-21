@@ -17,12 +17,9 @@ const ProjectCard = ({ title, description, githubLink, siteLink, index, isDark }
       whileHover={{
         scale: 1.05,
         boxShadow:"0 10px 40px rgba(19, 112, 98, 0.4)",
-        // boxShadow: isDark
-        //   ? "0 10px 40px rgba(19, 112, 98, 0.4)"
-          // : "0 10px 35px rgba(19, 112, 98, 0.4)",
       }}
       style={{
-        backgroundColor: isDark ? "rgba(20, 24, 27, 1)" : "#c6d6e9",  // Baby Blue for light theme
+        backgroundColor: isDark ? "rgba(20, 24, 27, 1)" : "#c6d6e9", 
         padding: "20px",
         borderRadius: "12px",
         margin: "10px",
@@ -36,7 +33,6 @@ const ProjectCard = ({ title, description, githubLink, siteLink, index, isDark }
         transition: "background-color 0.3s ease, color 0.3s ease",
       }}
     >
-      {/* Title */}
       <motion.h3
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -50,7 +46,6 @@ const ProjectCard = ({ title, description, githubLink, siteLink, index, isDark }
 
       <br />
 
-      {/* Description */}
       <motion.p
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -89,21 +84,23 @@ const ProjectCard = ({ title, description, githubLink, siteLink, index, isDark }
           <FaGithub size={24} />
         </motion.a>
 
-        {/* External Link icon */}
-        <motion.a
-          href={siteLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          whileHover={{ scale: 1.2, rotate: -5 }}
-          whileTap={{ scale: 0.9 }}
-          style={{
-            color: "#137062",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <FiExternalLink size={24} />
-        </motion.a>
+        {/* External Link icon - ONLY RENDERS IF siteLink EXISTS */}
+        {siteLink && (
+          <motion.a
+            href={siteLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.2, rotate: -5 }}
+            whileTap={{ scale: 0.9 }}
+            style={{
+              color: "#137062",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <FiExternalLink size={24} />
+          </motion.a>
+        )}
       </motion.div>
     </motion.div>
   );
