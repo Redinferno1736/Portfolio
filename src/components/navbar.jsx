@@ -81,7 +81,7 @@ function Navbar({ onAboutClick, onSkillsClick, onProjectsClick, onContactClick, 
         ].map((item) => (
           <motion.a
             key={item.name}
-            href={`#${item.name.toLowerCase()}`}
+            href={`${item.name.toLowerCase()}`}
             onClick={(e) => {
               e.preventDefault();
               item.onClick();
