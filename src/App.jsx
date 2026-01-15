@@ -62,7 +62,7 @@ function App() {
     icon: <FiFileText />, 
     color: 'grey', 
     label: 'Resume',
-    href: '/resume.pdf'
+    href: '/PranavDP_Resume.pdf'
   },
   { 
     icon: <FaGithub />, 

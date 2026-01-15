@@ -23,7 +23,7 @@ const itemVariants = {
 const MinimalIcons = ({ items, className, isDark }) => {
   return (
     <motion.div
-      className={`flex gap-6 items-center justify-center ${className || ''}`}
+      className={`flex gap-8 items-center justify-center ${className || ''}`} // Increased gap slightly to prevent text overlap
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
@@ -32,9 +32,9 @@ const MinimalIcons = ({ items, className, isDark }) => {
       {items.map((item, index) => (
         <motion.a
           key={index}
-          href={item.href} // Use the href from the item
-          target={item.href?.startsWith('http') ? '_blank' : '_self'} // Open external links in new tab
-          rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined} // Security for external links
+          href={item.href}
+          target={item.href?.startsWith('http') ? '_blank' : '_self'}
+          rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
           aria-label={item.label}
           variants={itemVariants}
           whileHover={{
@@ -55,14 +55,26 @@ const MinimalIcons = ({ items, className, isDark }) => {
             fontSize: '24px',
             transition: 'all 0.3s ease',
             backdropFilter: 'blur(10px)',
+            position: 'relative', // IMPORTANT: Allows absolute positioning of the label
           }}
-          className={
+          // Added 'group' class here
+          className={`group ${
             isDark
               ? 'hover:bg-[rgba(19,112,98,0.1)] hover:border-[#137062] hover:text-[#137062] hover:shadow-[0_8px_20px_rgba(19,112,98,0.3)]'
               : 'hover:bg-[rgba(59,157,157,0.1)] hover:border-[#3b9d9d] hover:text-[#3b9d9d] hover:shadow-[0_8px_20px_rgba(59,157,157,0.3)]'
-          }
+          }`}
         >
           {item.icon}
+          
+          {/* New Label Element */}
+          <span 
+            className={`absolute -bottom-8 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap ${
+              isDark ? 'text-gray-300' : 'text-gray-700'
+            }`}
+            style={{ fontFamily: 'quicksand' }}
+          >
+            {item.label}
+          </span>
         </motion.a>
       ))}
     </motion.div>
