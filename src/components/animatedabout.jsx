@@ -23,7 +23,7 @@ export default function AnimatedAboutSection({ isDark }) {
           // 2. STYLING MAGIC HERE:
           // object-cover: Cuts off the sides to fill the box without stretching
           // object-top: Focuses the crop on the top of the image (your face) rather than the center (your chest/legs)
-          className="w-full h-full object-cover object-[50%_10%]" 
+          className="w-full h-full object-cover object-center" 
         />
       </motion.div>
 
