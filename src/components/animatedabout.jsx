@@ -7,11 +7,9 @@ export default function AnimatedAboutSection({ isDark }) {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div ref={ref} className="about absolute z-10 top-[120vh] flex flex-row gap-[40px] items-center justify-center w-screen px-10">
-      
+    <div ref={ref} className="about z-10 flex flex-row gap-[40px] items-center justify-center w-screen px-10">
       {/* Image Container */}
       <motion.div
-        // Changed width to specific pixel/rem value for better control, or kept vw if preferred
         className="first w-[300px] h-[400px] flex justify-center items-center overflow-hidden rounded-2xl shadow-2xl"
         initial={{ x: 0, opacity: 0, scale: 0.7 }}
         animate={isInView ? { x: 0, opacity: 1, scale: 1 } : {}} // Removed x offset for cleaner centering
@@ -20,13 +18,10 @@ export default function AnimatedAboutSection({ isDark }) {
         <img 
           src={profilePic} 
           alt="Pranav D P" 
-          // 2. STYLING MAGIC HERE:
-          // object-cover: Cuts off the sides to fill the box without stretching
-          // object-top: Focuses the crop on the top of the image (your face) rather than the center (your chest/legs)
+
           className="w-full h-full object-cover object-center" 
         />
       </motion.div>
-
       {/* Text Animation */}
       <motion.div
         className={`${isDark ? "text-[#B0B7B5]" : "text-[#333333]"} card max-w-[500px]`}

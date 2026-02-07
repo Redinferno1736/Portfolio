@@ -58,38 +58,38 @@ function App() {
   }
 
   const items = [
-  { 
-    icon: <FiFileText />, 
-    color: 'grey', 
-    label: 'Resume',
-    href: '/PranavDP_Resume.pdf'
-  },
-  { 
-    icon: <FaGithub />, 
-    color: 'grey', 
-    label: 'GitHub',
-    href: 'https://github.com/Redinferno1736'
-  },
-  { 
-    icon: <FaLinkedin />, 
-    color: 'grey', 
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/pranav-d-p-a2100a333/'
-  },
-  { 
-    icon: <MdEmail />, 
-    color: 'grey', 
-    label: 'Email',
-    href: 'mailto:email.pranavdp@gmail.com'
-  },
-];
-
+    {
+      icon: <FiFileText />,
+      color: 'grey',
+      label: 'Resume',
+      href: '/PranavDP_Resume.pdf'
+    },
+    {
+      icon: <FaGithub />,
+      color: 'grey',
+      label: 'GitHub',
+      href: 'https://github.com/Redinferno1736'
+    },
+    {
+      icon: <FaLinkedin />,
+      color: 'grey',
+      label: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/pranav-d-p-a2100a333/'
+    },
+    {
+      icon: <MdEmail />,
+      color: 'grey',
+      label: 'Email',
+      href: 'mailto:email.pranavdp@gmail.com'
+    },
+  ];
 
   return (
-    <div className={isDark ? "dark" : "light"}>
-      <div className="relative z-1000 h-[100vh] transition-colors duration-300">
-        <div className="flex items-center relative justify-between">
-          {/* Navbar wrapper to center */}
+    <div className={`min-h-screen w-full overflow-x-hidden ${isDark ? "dark bg-[#222222]" : "light bg-[#f3f3f3]"}`}>
+
+      <div className="relative flex flex-col min-h-screen transition-colors duration-300">
+
+        <div className="flex items-center justify-between px-4 py-4">
           <div className="flex-grow flex justify-center">
             <Navbar
               onAboutClick={() => aboutSectionRef.current.scrollIntoView({ behavior: 'smooth' })}
@@ -99,12 +99,10 @@ function App() {
               isDark={isDark}
             />
           </div>
-
-          {/* ToggleSwitch aligned right */}
           <ToggleSwitch isDark={isDark} toggleTheme={toggleTheme} />
         </div>
 
-        <div className="hero mt-15 flex flex-col justify-center items-center h-3/4 w-screen">
+        <div className="hero flex-grow flex flex-col justify-center items-center px-4 text-center">
           <div
             style={{ position: 'relative', height: '90px' }}
             className={`${isDark ? 'fs' : 'fs-light'} w-1/4`}
@@ -127,31 +125,34 @@ function App() {
             DEVELOPER
           </SpotlightText>
           <div
-            className="tag w-full flex items-center justify-center"
-            style={{ color: isDark ? "#B0B7B5" : "#333333", fontFamily: "quicksand", fontWeight: "500" }}
+            className="tag w-full max-w-lg mt-4 text-center"
+            style={{ color: isDark ? "#B0B7B5" : "#333333" }}
           >
             Turning complex problems into elegant, high-performance software
           </div>
         </div>
       </div>
 
-      <div ref={aboutSectionRef}>
+      <div ref={aboutSectionRef} className="relative w-full">
         <CombinedCanvas isDark={isDark} />
-        <AnimatedAboutSection isDark={isDark} />
-        <div style={{ height: '200px' }} className="w-full grid place-items-center absolute top-[170vh] z-30">
-          <MinimalIcons items={items} isDark={isDark} className="custom-class" />
+        <div className='absolute top-[20vh] flex flex-col gap-8'>
+          <AnimatedAboutSection isDark={isDark} />
+
+          <div className="w-full flex justify-center">
+            <MinimalIcons items={items} isDark={isDark} />
+          </div>
         </div>
       </div>
 
-      <div ref={skillsRef} className='h-[100vh]'>
-        <div className='absolute top-[210vh] w-[95vw] z-40 flex'>
-          <div className="flex w-full">
-            <div className="flex-1">
-              <SkillsGrid isDark={isDark} />
-            </div>
-            <div className="flex items-center justify-center" style={{ minWidth: 420 }}>
-              <TechSetLogo first="TECH" second="STACK" isDark={isDark} />
-            </div>
+      <div ref={skillsRef} className="w-full min-h-screen flex items-center justify-center py-20">
+        <div className="flex flex-col md:flex-row w-[95vw] gap-10">
+
+          <div className="flex-1 order-2 md:order-1">
+            <SkillsGrid isDark={isDark} />
+          </div>
+
+          <div className="flex items-center justify-center w-full md:w-auto order-1 md:order-2">
+            <TechSetLogo first="TECH" second="STACK" isDark={isDark} />
           </div>
         </div>
       </div>
@@ -197,11 +198,10 @@ function App() {
         </div>
       </div>
 
-      <div ref={contactRef} className="w-full flex justify-center ">
-        <div className="w-full">
-          <ContactSection isDark={isDark} />
-        </div>
+      <div ref={contactRef} className="w-full">
+        <ContactSection isDark={isDark} />
       </div>
+
     </div>
   );
 }

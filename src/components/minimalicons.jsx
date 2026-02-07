@@ -23,7 +23,7 @@ const itemVariants = {
 const MinimalIcons = ({ items, className, isDark }) => {
   return (
     <motion.div
-      className={`flex gap-8 items-center justify-center ${className || ''}`} // Increased gap slightly to prevent text overlap
+      className={`flex gap-8 z-5 items-center justify-center ${className || ''}`} // Increased gap slightly to prevent text overlap
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
