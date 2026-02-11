@@ -96,8 +96,9 @@ function SkillsGrid({ skills = skillsData, isDark }) {
     padding: "1.8rem",
     borderRadius: "16px",
     color: isDark ? "#ffffff" : "#191818",
-    maxWidth: "900px",
-    margin: "2rem auto",
+    width: "100%",
+    maxWidth: "min(900px, 100%)",
+    margin: "0",
     border: isDark
       ? "1px solid rgba(19, 112, 98, 0.2)"
       : "1px solid rgba(19, 112, 98, 0.1)",

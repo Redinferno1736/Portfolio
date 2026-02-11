@@ -104,8 +104,9 @@ function App() {
 
         <div className="hero flex-grow flex flex-col justify-center items-center px-4 text-center">
           <div
-            style={{ position: 'relative', height: '90px' }}
-            className={`${isDark ? 'fs' : 'fs-light'} w-1/4`}
+            style={{ position: 'relative' }}
+            className={`${isDark ? 'fs' : 'fs-light'} w-[60vw] md:w-[30vw] h-auto`}
+
           >
             <TextPressure
               text="FULL STACK"
@@ -144,22 +145,38 @@ function App() {
         </div>
       </div>
 
-      <div ref={skillsRef} className="w-full min-h-screen flex items-center justify-center py-20">
-        <div className="flex flex-col md:flex-row w-[95vw] gap-10">
+      <div ref={skillsRef} className="w-full min-h-screen flex items-center justify-center py-30">
+        <div className="
+    w-[95vw] 
+    grid grid-cols-1 
+    min-[900px]:grid-cols-[7fr_3fr]
+    items-center 
+    min-[900px]:gap-10
+  ">
 
-          <div className="flex-1 order-2 md:order-1">
+          {/* LOGO — first on mobile, second on desktop */}
+          <div className="
+  flex items-center justify-center 
+  order-1 min-[900px]:order-2
+  w-full min-h-[300px]
+">
+            <TechSetLogo first="TECH" second="STACK" isDark={isDark} />
+          </div>
+
+
+          {/* SKILLS — second on mobile, first on desktop */}
+          <div className="order-2 min-[900px]:order-1">
             <SkillsGrid isDark={isDark} />
           </div>
 
-          <div className="flex items-center justify-center w-full md:w-auto order-1 md:order-2">
-            <TechSetLogo first="TECH" second="STACK" isDark={isDark} />
-          </div>
         </div>
       </div>
 
+
+
       <div
         ref={projectsRef}
-        className="w-full py-8 flex justify-center min-h-screen" // Added min-h-screen
+        className="w-full flex justify-center min-h-screen" // Added min-h-screen
         style={{
           background: isDark
             ? "linear-gradient(135deg,#137062 0%, #181c1f 20%,#181c1f 80%, #137062 100%)"
@@ -192,7 +209,7 @@ function App() {
           </div>
 
           {/* Right Side: Scrollable Projects */}
-          <div className="md:w-2/3 w-full flex md:justify-end justify-center pr-10">
+          <div className="md:w-2/3 w-full flex md:justify-end justify-center pr-5 pt-16">
             <ProjectsSection isDark={isDark} />
           </div>
         </div>

@@ -20,10 +20,10 @@ const ProjectCard = ({ title, description, githubLink, siteLink, index, isDark }
       }}
       style={{
         backgroundColor: isDark ? "rgba(20, 24, 27, 1)" : "#c6d6e9", 
-        padding: "20px",
+        padding: "2vw",
         borderRadius: "12px",
         margin: "10px",
-        width: "300px",
+        width: "clamp(260px, 28vw, 320px)",
         color: isDark ? "white" : "#191818",
         position: "relative",
         border: isDark

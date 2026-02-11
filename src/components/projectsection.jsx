@@ -52,7 +52,7 @@ export default function ProjectsSection({ isDark }) {
     <div className="w-full flex flex-col items-center justify-center relative">
       
       {/* Navigation Controls (Top Right or Absolute) */}
-      <div className="flex gap-4 mb-4 justify-end w-full px-6">
+      <div className="flex gap-4 justify-end w-full px-6">
         <button
           onClick={prevPage}
           disabled={currentPage === 0}
@@ -78,7 +78,7 @@ export default function ProjectsSection({ isDark }) {
       </div>
 
       {/* Project Grid Container with AnimatePresence */}
-      <div className="w-full relative min-h-[650px] overflow-hidden">
+      <div className="w-full relative min-h-[70vh]">
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
             key={currentPage}
@@ -109,7 +109,7 @@ export default function ProjectsSection({ isDark }) {
       </div>
 
       {/* Page Indicator */}
-      <div className="mt-5 flex gap-2">
+      <div className="flex gap-2">
         {Array.from({ length: totalPages }).map((_, idx) => (
           <div
             key={idx}

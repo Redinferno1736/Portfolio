@@ -35,7 +35,7 @@ body {
 /* Developer Spotlight */
 .spotlight-text {
   font-family: 'Montserrat';
-  font-size: 10vw;
+  font-size: clamp(3rem, 10vw, 10rem);
   position: relative;
   color: #191818;
   transition: background 1s, color 1s;
@@ -167,3 +167,26 @@ body {
 .dark .techset-outline {
   -webkit-text-stroke: 3px #137062 !important;
 }  */
+
+@media (max-width: 480px) {
+  .spotlight-text {
+    font-size: clamp(2.8rem, 10vw, 5rem);
+  }
+
+  .fs, .fs-light {
+    font-size: 6vw;
+  }
+}
+
+/* TABLETS */
+@media (max-width: 768px) {
+  .about {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .skills-grid {
+    max-width: 95vw;
+  }
+}
+

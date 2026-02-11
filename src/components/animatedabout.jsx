@@ -7,19 +7,23 @@ export default function AnimatedAboutSection({ isDark }) {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div ref={ref} className="about z-10 flex flex-row gap-[40px] items-center justify-center w-screen px-10">
+    <div
+      ref={ref}
+      className="about z-10 flex flex-col md:flex-row gap-6 md:gap-10 items-center justify-center w-screen px-6 md:px-10"
+    >
+
       {/* Image Container */}
       <motion.div
-        className="first w-[300px] h-[400px] flex justify-center items-center overflow-hidden rounded-2xl shadow-2xl"
+        className="first w-[70vw] md:w-[300px] h-[50vh] md:h-[400px]"
         initial={{ x: 0, opacity: 0, scale: 0.7 }}
         animate={isInView ? { x: 0, opacity: 1, scale: 1 } : {}} // Removed x offset for cleaner centering
-        transition={{ type:"spring", stiffness: 70, damping: 20, duration: 1.5 }}
+        transition={{ type: "spring", stiffness: 70, damping: 20, duration: 1.5 }}
       >
-        <img 
-          src={profilePic} 
-          alt="Pranav D P" 
+        <img
+          src={profilePic}
+          alt="Pranav D P"
 
-          className="w-full h-full object-cover object-center" 
+          className="w-full h-full object-cover object-center"
         />
       </motion.div>
       {/* Text Animation */}
@@ -28,7 +32,7 @@ export default function AnimatedAboutSection({ isDark }) {
         initial={{ opacity: 0, y: 40 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: 0.3, duration: 0.9, ease: "easeOut" }}
-        style={{ 
+        style={{
           fontFamily: 'quicksand',
           fontWeight: "700",
           fontSize: "1.1rem",

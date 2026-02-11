@@ -43,7 +43,15 @@ function TechSetLogo({ first, second, isDark }) {
   const styles = getStyles(isDark);
 
   return (
-    <div style={{ position: "relative", width: 420, height: 180 }}>
+    <div
+      style={{ position: "relative" }}
+      className="
+    w-[280px] min-[600px]:w-[340px] min-[900px]:w-[420px] 
+    h-[180px]
+    mx-auto
+  "
+    >
+
       <span style={styles.tech}>{first}</span>
       <span style={styles.set}>{second}</span>
     </div>
