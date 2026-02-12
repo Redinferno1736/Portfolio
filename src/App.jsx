@@ -10,6 +10,7 @@ import AnimatedAboutSection from './components/animatedabout';
 import SkillsGrid from './components/skillsgrid';
 import ProjectsSection from './components/projectsection';
 import TechSetLogo from './components/techset';
+import ProjectsTitle from './components/projectstitle';
 import { FiFileText } from "react-icons/fi";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
@@ -176,7 +177,7 @@ function App() {
 
       <div
         ref={projectsRef}
-        className="w-full flex justify-center min-h-screen" // Added min-h-screen
+        className="w-full flex justify-center"
         style={{
           background: isDark
             ? "linear-gradient(135deg,#137062 0%, #181c1f 20%,#181c1f 80%, #137062 100%)"
@@ -185,7 +186,7 @@ function App() {
           overflow: "hidden"
         }}
       >
-        {/* Background glow div remains the same... */}
+        {/* Background glow */}
         <div
           style={{
             position: 'absolute',
@@ -200,18 +201,18 @@ function App() {
           }}
         />
 
-        {/* Main Content Container */}
-        <div className="flex flex-col md:flex-row items-center gap-30 w-full justify-between relative z-10 max-w-[95vw]">
+        <div className="w-[95vw] relative z-10 py-16 flex flex-col items-center">
 
-          {/* Left Side: Sticky Title */}
-          <div className="md:w-1/3 w-full flex pl-10 md:justify-start justify-center mb-8 md:mb-0 md:sticky md:top-32">
-            <TechSetLogo first="FEATURED" second="PROJECTS" isDark={isDark} />
+          {/* TITLE ON TOP */}
+          <div className="mb-12 pt-7">
+            <ProjectsTitle isDark={isDark} />
           </div>
 
-          {/* Right Side: Scrollable Projects */}
-          <div className="md:w-2/3 w-full flex md:justify-end justify-center pr-5 pt-16">
+          {/* PROJECT GRID */}
+          <div className="w-full">
             <ProjectsSection isDark={isDark} />
           </div>
+
         </div>
       </div>
 
