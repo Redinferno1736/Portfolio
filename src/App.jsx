@@ -177,7 +177,7 @@ function App() {
 
       <div
         ref={projectsRef}
-        className="w-full flex justify-center"
+        className="w-full flex justify-center min-h-screen"
         style={{
           background: isDark
             ? "linear-gradient(135deg,#137062 0%, #181c1f 20%,#181c1f 80%, #137062 100%)"
@@ -204,7 +204,7 @@ function App() {
         <div className="w-[95vw] relative z-10 py-16 flex flex-col items-center">
 
           {/* TITLE ON TOP */}
-          <div className="mb-12 pt-7">
+          <div className="pt-7">
             <ProjectsTitle isDark={isDark} />
           </div>
 

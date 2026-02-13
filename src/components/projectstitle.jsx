@@ -2,7 +2,7 @@ import React from "react";
 
 function ProjectsTitle({ isDark }) {
     return (
-        <div className="w-full flex flex-col items-center justify-center mb-12">
+        <div className="w-full flex flex-col items-center justify-center">
 
             {/* Small top label (optional but premium) */}
             {/* <div

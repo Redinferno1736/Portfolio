@@ -1,16 +1,60 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import ProjectCard from './projectcard';
-import { projectData } from '../data/projects';
-
-const ITEMS_PER_PAGE = 8; // 2 rows x 4 columns on desktop
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import ProjectCard from "./projectcard";
+import { projectData } from "../data/projects";
 
 export default function ProjectsSection({ isDark }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [columns, setColumns] = useState(4);
+  const [rows, setRows] = useState(2);
 
+  /* ---------------------------------- */
+  /*  Responsive Layout Detection       */
+  /* ---------------------------------- */
+  useEffect(() => {
+    const updateLayout = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      /* -------- Width → Columns -------- */
+      if (width >= 1350) setColumns(4);
+      else if (width >= 900) setColumns(3);
+      else if (width >= 550) setColumns(2);
+      else setColumns(1);
+
+      /* -------- Height → Dynamic Rows -------- */
+      const estimatedCardHeight = 290; 
+      // Adjust slightly if needed depending on your card height
+
+      const availableHeight = height * 0.75;
+      // Leaves space for title + nav + spacing
+
+      let calculatedRows = Math.floor(
+        availableHeight / estimatedCardHeight
+      );
+
+      // Keep it controlled (desktop remains clean)
+      calculatedRows = Math.max(1, Math.min(calculatedRows, 4));
+
+      setRows(calculatedRows);
+    };
+
+    updateLayout();
+    window.addEventListener("resize", updateLayout);
+    return () => window.removeEventListener("resize", updateLayout);
+  }, []);
+
+  const ITEMS_PER_PAGE = columns * rows;
   const totalPages = Math.ceil(projectData.length / ITEMS_PER_PAGE);
+
+  /* Reset safely if resizing causes overflow */
+  useEffect(() => {
+    if (currentPage > totalPages - 1) {
+      setCurrentPage(0);
+    }
+  }, [columns, rows, totalPages]);
 
   const startIndex = currentPage * ITEMS_PER_PAGE;
   const currentProjects = projectData.slice(
@@ -32,9 +76,12 @@ export default function ProjectsSection({ isDark }) {
     }
   };
 
+  /* ---------------------------------- */
+  /*  Smooth Slide Animation            */
+  /* ---------------------------------- */
   const slideVariants = {
     enter: (direction) => ({
-      x: direction > 0 ? 1000 : -1000,
+      x: direction > 0 ? "4vw" : "-4vw",
       opacity: 0,
     }),
     center: {
@@ -42,7 +89,7 @@ export default function ProjectsSection({ isDark }) {
       opacity: 1,
     },
     exit: (direction) => ({
-      x: direction < 0 ? 1000 : -1000,
+      x: direction < 0 ? "4vw" : "-4vw",
       opacity: 0,
     }),
   };
@@ -50,35 +97,49 @@ export default function ProjectsSection({ isDark }) {
   return (
     <div className="w-full flex flex-col items-center">
 
-      {/* Pagination Arrows */}
-      <div className="flex gap-4 justify-end w-full px-6 mb-8">
-        <button
-          onClick={prevPage}
-          disabled={currentPage === 0}
-          className={`p-3 rounded-full transition-all duration-300 ${
-            currentPage === 0
-              ? 'opacity-30 cursor-not-allowed'
-              : 'hover:bg-[#137062] hover:text-white cursor-pointer'
-          } ${isDark ? 'text-white bg-white/10' : 'text-black bg-black/10'}`}
-        >
-          <FaChevronLeft size={20} />
-        </button>
+      {/* ---------- Navigation ---------- */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center md:justify-end w-full mb-4 gap-6">
+          <button
+            onClick={prevPage}
+            disabled={currentPage === 0}
+            className={`p-3 rounded-full transition-all duration-300 ${
+              currentPage === 0
+                ? "opacity-30 cursor-not-allowed"
+                : "hover:bg-[#137062] hover:text-white cursor-pointer"
+            } ${
+              isDark ? "text-white bg-white/10" : "text-black bg-black/10"
+            }`}
+          >
+            <FaChevronLeft size={18} />
+          </button>
 
-        <button
-          onClick={nextPage}
-          disabled={currentPage === totalPages - 1}
-          className={`p-3 rounded-full transition-all duration-300 ${
-            currentPage === totalPages - 1
-              ? 'opacity-30 cursor-not-allowed'
-              : 'hover:bg-[#137062] hover:text-white cursor-pointer'
-          } ${isDark ? 'text-white bg-white/10' : 'text-black bg-black/10'}`}
-        >
-          <FaChevronRight size={20} />
-        </button>
-      </div>
+          <div
+            className={`text-sm tracking-wider ${
+              isDark ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            {currentPage + 1} / {totalPages}
+          </div>
 
-      {/* Grid */}
-      <div className="w-full overflow-hidden">
+          <button
+            onClick={nextPage}
+            disabled={currentPage === totalPages - 1}
+            className={`p-3 rounded-full transition-all duration-300 ${
+              currentPage === totalPages - 1
+                ? "opacity-30 cursor-not-allowed"
+                : "hover:bg-[#137062] hover:text-white cursor-pointer"
+            } ${
+              isDark ? "text-white bg-white/10" : "text-black bg-black/10"
+            }`}
+          >
+            <FaChevronRight size={18} />
+          </button>
+        </div>
+      )}
+
+      {/* ---------- Grid Container ---------- */}
+      <div className="w-full overflow-hidden min-h-[55vh]">
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
             key={currentPage}
@@ -88,20 +149,19 @@ export default function ProjectsSection({ isDark }) {
             animate="center"
             exit="exit"
             transition={{
-              x: { type: "spring", stiffness: 250, damping: 25 },
-              opacity: { duration: 0.2 }
+              x: { type: "spring", stiffness: 180, damping: 28 },
+              opacity: { duration: 0.25 },
             }}
             className="
-            grid
-            grid-cols-1
-            min-[550px]:grid-cols-2
-            min-[800px]:grid-cols-3
-            min-[1350px]:grid-cols-4
-            gap-6
-            w-full
-            justify-items-center
-          "
-
+              grid
+              grid-cols-1
+              min-[550px]:grid-cols-2
+              min-[900px]:grid-cols-3
+              min-[1350px]:grid-cols-4
+              gap-6
+              w-full
+              justify-items-center
+            "
           >
             {currentProjects.map((project, index) => (
               <ProjectCard
@@ -118,19 +178,6 @@ export default function ProjectsSection({ isDark }) {
         </AnimatePresence>
       </div>
 
-      {/* Page Dots */}
-      <div className="flex gap-2 mt-4">
-        {Array.from({ length: totalPages }).map((_, idx) => (
-          <div
-            key={idx}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              idx === currentPage
-                ? 'w-8 bg-[#137062]'
-                : `w-2 ${isDark ? 'bg-gray-600' : 'bg-gray-400'}`
-            }`}
-          />
-        ))}
-      </div>
     </div>
   );
 }
