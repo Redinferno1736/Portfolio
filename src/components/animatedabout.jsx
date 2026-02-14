@@ -14,7 +14,16 @@ export default function AnimatedAboutSection({ isDark }) {
 
       {/* Image Container */}
       <motion.div
-        className="first w-[70vw] md:w-[300px] h-[50vh] md:h-[400px]"
+        className="
+        first
+        w-[75vw]
+        sm:w-[60vw]
+        md:w-[300px]
+        h-[35vh]
+        sm:h-[45vh]
+        md:h-[400px]
+        max-w-[350px]
+      "
         initial={{ x: 0, opacity: 0, scale: 0.7 }}
         animate={isInView ? { x: 0, opacity: 1, scale: 1 } : {}} // Removed x offset for cleaner centering
         transition={{ type: "spring", stiffness: 70, damping: 20, duration: 1.5 }}
@@ -35,7 +44,7 @@ export default function AnimatedAboutSection({ isDark }) {
         style={{
           fontFamily: 'quicksand',
           fontWeight: "700",
-          fontSize: "1.1rem",
+          fontSize: "clamp(0.95rem, 2.5vw, 1.1rem)",
           lineHeight: "1.6"
         }}
       >

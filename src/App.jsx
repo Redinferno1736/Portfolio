@@ -137,7 +137,7 @@ function App() {
 
       <div ref={aboutSectionRef} className="relative w-full">
         <CombinedCanvas isDark={isDark} />
-        <div className='absolute top-[20vh] flex flex-col gap-8'>
+        <div className='absolute top-[15vh] min-[900px]:top-[20vh] flex flex-col gap-8'>
           <AnimatedAboutSection isDark={isDark} />
 
           <div className="w-full flex justify-center">
