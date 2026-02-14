@@ -8,7 +8,7 @@ const getStyles = (isDark) => ({
     width: "100%",
     fontFamily: "Montserrat, Arial, sans-serif",
     fontWeight: "900",
-    fontSize: "90px",
+    fontSize: "clamp(60px, 5vw, 80px)",
     color: isDark ? "#fff" : "#191818",
     letterSpacing: "2px",
     zIndex: 2,
@@ -16,26 +16,17 @@ const getStyles = (isDark) => ({
   },
   set: {
     position: "absolute",
-    top: "50px",
+    top: "48px",
     left: "0",
     width: "100%",
     fontFamily: "Montserrat, Arial, sans-serif",
     fontWeight: "900",
-    fontSize: "90px",
+    fontSize: "clamp(60px, 5vw, 80px)",
     color: "transparent",
     letterSpacing: "2px",
     zIndex: 3,
     textTransform: "uppercase",
-    WebkitTextStroke: isDark ? "3px #137062" : "3px #0c7663", // Slightly darker stroke for light mode
-    textStroke: isDark ? "3px #137062" : "3px #0c7663",
-  },
-  overlay: {
-    position: "absolute",
-    top: "0",
-    left: "0",
-    width: "100%",
-    height: "100%",
-    pointerEvents: "none",
+    WebkitTextStroke: isDark ? "3px #137062" : "3px #0c7663",
   },
 });
 
@@ -46,12 +37,12 @@ function TechSetLogo({ first, second, isDark }) {
     <div
       style={{ position: "relative" }}
       className="
-    w-[280px] min-[600px]:w-[340px] min-[900px]:w-[420px] 
-    h-[180px]
-    mx-auto
-  "
+        w-[280px] 
+        sm:w-[340px] 
+        lg:w-[420px] 
+        h-[180px]
+      "
     >
-
       <span style={styles.tech}>{first}</span>
       <span style={styles.set}>{second}</span>
     </div>
