@@ -17,6 +17,7 @@ import { MdEmail } from "react-icons/md";
 import { Helix } from 'ldrs/react';
 import 'ldrs/react/Helix.css';
 import ContactSection from './components/contactsection';
+import StaggeredMenu from './components/StaggeredMenu';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -59,55 +60,50 @@ function App() {
   }
 
   const items = [
-    {
-      icon: <FiFileText />,
-      color: 'grey',
-      label: 'Resume',
-      href: '/PranavDP_Resume.pdf'
-    },
-    {
-      icon: <FaGithub />,
-      color: 'grey',
-      label: 'GitHub',
-      href: 'https://github.com/Redinferno1736'
-    },
-    {
-      icon: <FaLinkedin />,
-      color: 'grey',
-      label: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/pranav-d-p-a2100a333/'
-    },
-    {
-      icon: <MdEmail />,
-      color: 'grey',
-      label: 'Email',
-      href: 'mailto:email.pranavdp@gmail.com'
-    },
+    { icon: <FiFileText />, color: 'grey', label: 'Resume', href: '/PranavDP_Resume.pdf' },
+    { icon: <FaGithub />, color: 'grey', label: 'GitHub', href: 'https://github.com/Redinferno1736' },
+    { icon: <FaLinkedin />, color: 'grey', label: 'LinkedIn', href: 'https://www.linkedin.com/in/pranav-d-p-a2100a333/' },
+    { icon: <MdEmail />, color: 'grey', label: 'Email', href: 'mailto:email.pranavdp@gmail.com' },
   ];
 
   return (
     <div className={`min-h-screen w-full overflow-x-hidden ${isDark ? "dark bg-[#222222]" : "light bg-[#f3f3f3]"}`}>
 
+      {/* ── MOBILE NAV: StaggeredMenu (only visible below md) ── */}
+      <div className="block md:hidden">
+        <StaggeredMenu
+          isDark={isDark}
+          toggleTheme={toggleTheme}
+          onAboutClick={() => aboutSectionRef.current?.scrollIntoView({ behavior: 'smooth' })}
+          onSkillsClick={() => skillsRef.current?.scrollIntoView({ behavior: 'smooth' })}
+          onProjectsClick={() => projectsRef.current?.scrollIntoView({ behavior: 'smooth' })}
+          onContactClick={() => contactRef.current?.scrollIntoView({ behavior: 'smooth' })}
+        />
+      </div>
+
       <div className="relative flex flex-col min-h-screen transition-colors duration-300">
 
-        <div className="flex items-center justify-between px-4 py-4">
-          <div className="flex-grow flex justify-center">
-            <Navbar
-              onAboutClick={() => aboutSectionRef.current.scrollIntoView({ behavior: 'smooth' })}
-              onSkillsClick={() => skillsRef.current.scrollIntoView({ behavior: 'smooth' })}
-              onProjectsClick={() => projectsRef.current.scrollIntoView({ behavior: 'smooth' })}
-              onContactClick={() => contactRef.current.scrollIntoView({ behavior: 'smooth' })}
-              isDark={isDark}
-            />
-          </div>
-          <ToggleSwitch isDark={isDark} toggleTheme={toggleTheme} />
+        {/* ── DESKTOP NAV: Navbar with toggle inside (only visible md+) ── */}
+        <div className="hidden md:flex items-center justify-center px-4 py-4">
+          <Navbar
+            onAboutClick={() => aboutSectionRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            onSkillsClick={() => skillsRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            onProjectsClick={() => projectsRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            onContactClick={() => contactRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            isDark={isDark}
+            toggleTheme={toggleTheme}
+          />
         </div>
 
-        <div className="hero flex-grow flex flex-col justify-center items-center px-4 text-center">
+        {/* ── HERO SECTION ── */}
+        {/* 
+          On mobile: pad top so content clears the 64px StaggeredMenu header.
+          On desktop: no extra padding needed (Navbar is inside the flow above).
+        */}
+        <div className="hero flex-grow flex flex-col justify-center items-center px-4 text-center pt-20 md:pt-0">
           <div
             style={{ position: 'relative' }}
-            className={`${isDark ? 'fs' : 'fs-light'} w-[60vw] md:w-[30vw] h-auto`}
-
+            className={`${isDark ? 'fs' : 'fs-light'} w-[80vw] sm:w-[60vw] md:w-[30vw] h-auto`}
           >
             <TextPressure
               text="FULL STACK"
@@ -123,9 +119,7 @@ function App() {
               minFontSize={48}
             />
           </div>
-          <SpotlightText>
-            DEVELOPER
-          </SpotlightText>
+          <SpotlightText>DEVELOPER</SpotlightText>
           <div
             className="tag w-full max-w-lg mt-4 text-center"
             style={{ color: isDark ? "#B0B7B5" : "#333333" }}
@@ -135,46 +129,38 @@ function App() {
         </div>
       </div>
 
+      {/* ── ABOUT SECTION ── */}
       <div ref={aboutSectionRef} className="relative w-full">
         <CombinedCanvas isDark={isDark} />
         <div className='absolute top-[15vh] min-[900px]:top-[20vh] flex flex-col gap-8'>
           <AnimatedAboutSection isDark={isDark} />
-
           <div className="w-full flex justify-center">
             <MinimalIcons items={items} isDark={isDark} />
           </div>
         </div>
       </div>
 
+      {/* ── SKILLS SECTION ── */}
       <div ref={skillsRef} className="w-full min-h-screen flex items-center justify-center py-30">
         <div className="
-    w-[95vw] 
-    grid grid-cols-1 
-    min-[900px]:grid-cols-[7fr_3fr]
-    items-center 
-    min-[900px]:gap-10
-  ">
-
-          {/* LOGO — first on mobile, second on desktop */}
-          <div className="
-  flex items-center justify-center 
-  order-1 min-[900px]:order-2
-  w-full min-h-[300px]
-">
+          w-[95vw]
+          grid grid-cols-1
+          min-[900px]:grid-cols-[7fr_3fr]
+          items-center
+          min-[900px]:gap-10
+        ">
+          {/* LOGO */}
+          <div className="flex items-center justify-center order-1 min-[900px]:order-2 w-full min-h-[300px]">
             <TechSetLogo first="TECH" second="STACK" isDark={isDark} />
           </div>
-
-
-          {/* SKILLS — second on mobile, first on desktop */}
+          {/* SKILLS */}
           <div className="order-2 min-[900px]:order-1">
             <SkillsGrid isDark={isDark} />
           </div>
-
         </div>
       </div>
 
-
-
+      {/* ── PROJECTS SECTION ── */}
       <div
         ref={projectsRef}
         className="w-full flex justify-center min-h-screen"
@@ -186,36 +172,25 @@ function App() {
           overflow: "hidden"
         }}
       >
-        {/* Background glow */}
         <div
           style={{
-            position: 'absolute',
-            bottom: 0,
-            right: 0,
-            width: '500px',
-            height: '500px',
-            pointerEvents: 'none',
+            position: 'absolute', bottom: 0, right: 0,
+            width: '500px', height: '500px', pointerEvents: 'none',
             background: 'radial-gradient(circle at 90% 80%, #16e1b0 0%, transparent 70%)',
-            opacity: 0.26,
-            zIndex: 1
+            opacity: 0.26, zIndex: 1
           }}
         />
-
         <div className="w-[95vw] relative z-10 py-16 flex flex-col items-center">
-
-          {/* TITLE ON TOP */}
           <div className="pt-7">
             <ProjectsTitle isDark={isDark} />
           </div>
-
-          {/* PROJECT GRID */}
           <div className="w-full">
             <ProjectsSection isDark={isDark} />
           </div>
-
         </div>
       </div>
 
+      {/* ── CONTACT SECTION ── */}
       <div ref={contactRef} className="w-full">
         <ContactSection isDark={isDark} />
       </div>

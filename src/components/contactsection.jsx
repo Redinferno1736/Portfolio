@@ -40,7 +40,7 @@ export default function ContactSection({ isDark }) {
   };
 
   return (
-    <section className="pt-10 pb-5 w-full flex justify-center min-h-screen">
+    <section className="pt-24 md:pt-10 pb-5 w-full flex justify-center min-h-screen">
       <div className="w-full max-w-7xl px-8 flex flex-col md:flex-row items-center md:items-center justify-between gap-16">
 
         {/* LEFT SIDE */}

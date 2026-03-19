@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import ToggleSwitch from "./toggleswitch";
 
-function Navbar({ onAboutClick, onSkillsClick, onProjectsClick, onContactClick, isDark }) {
+function Navbar({ onAboutClick, onSkillsClick, onProjectsClick, onContactClick, isDark, toggleTheme }) {
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,73 +42,82 @@ function Navbar({ onAboutClick, onSkillsClick, onProjectsClick, onContactClick, 
     transition: "color 0.3s ease",
   };
 
-  // Function to handle scrolling to top
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <motion.nav
-      style={navbarStyle}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-    >
-      <motion.h1
-        onClick={scrollToTop} // 1. Add the click handler here
-        style={{ 
-            margin: 0, 
-            fontSize: "2rem", 
-            fontFamily: "Allura", 
-            color: isDark ? "#ffffff" : "#000000",
-            cursor: "pointer" // 2. Add cursor pointer so users know it's clickable
-        }}
-        whileHover={{ scale: 1.05, color: "#137062" }}
-        transition={{ duration: 0.2 }}
+    // KEY CHANGE: hidden on mobile (< 768px), flex on md+
+    <div className="hidden md:flex flex-grow justify-center">
+      <motion.nav
+        style={navbarStyle}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        Pranav D P
-      </motion.h1>
-      
-      <div className="flex gap-6 align-middle justify-center" style={{ fontFamily: "Poppins" }}>
-        {[
-          { name: 'About', onClick: onAboutClick },
-          { name: 'Skills', onClick: onSkillsClick },
-          { name: 'Projects', onClick: onProjectsClick },
-          { name: 'Contact', onClick: onContactClick }
-        ].map((item) => (
-          <motion.a
-            key={item.name}
-            href={`${item.name.toLowerCase()}`}
-            onClick={(e) => {
-              e.preventDefault();
-              item.onClick();
-              setActiveSection(item.name);
-            }}
-            style={linkStyle}
-            whileHover={{ color: "#137062", scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {item.name}
-            <motion.div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: "2px",
-                background: "#137062",
+        <motion.h1
+          onClick={scrollToTop}
+          style={{
+            margin: 0,
+            fontSize: "2rem",
+            fontFamily: "Allura",
+            color: isDark ? "#ffffff" : "#000000",
+            cursor: "pointer"
+          }}
+          whileHover={{ scale: 1.05, color: "#137062" }}
+          transition={{ duration: 0.2 }}
+        >
+          Pranav D P
+        </motion.h1>
+
+        <div className="flex items-center gap-6" style={{ fontFamily: "Poppins" }}>
+          {[
+            { name: 'About', onClick: onAboutClick },
+            { name: 'Skills', onClick: onSkillsClick },
+            { name: 'Projects', onClick: onProjectsClick },
+            { name: 'Contact', onClick: onContactClick }
+          ].map((item) => (
+            <motion.a
+              key={item.name}
+              href={`#${item.name.toLowerCase()}`}
+              onClick={(e) => {
+                e.preventDefault();
+                item.onClick();
               }}
-              initial={{ scaleX: 0 }}
-              whileHover={{ scaleX: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.a>
-        ))}
-      </div>
-    </motion.nav>
+              style={linkStyle}
+              whileHover={{ color: "#137062", scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {item.name}
+              <motion.div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: "2px",
+                  background: "#137062",
+                }}
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.a>
+          ))}
+
+          {/* Divider */}
+          <div style={{
+            width: "1px",
+            height: "18px",
+            background: isDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.15)",
+            borderRadius: "1px",
+          }} />
+
+          {/* Toggle inside navbar */}
+          <ToggleSwitch isDark={isDark} toggleTheme={toggleTheme} />
+        </div>
+      </motion.nav>
+    </div>
   );
 }
 

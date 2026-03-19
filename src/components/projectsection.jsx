@@ -10,35 +10,19 @@ export default function ProjectsSection({ isDark }) {
   const [columns, setColumns] = useState(4);
   const [rows, setRows] = useState(2);
 
-  /* ---------------------------------- */
-  /*  Responsive Layout Detection       */
-  /* ---------------------------------- */
   useEffect(() => {
     const updateLayout = () => {
       const width = window.innerWidth;
-      const height = window.innerHeight;
 
-      /* -------- Width → Columns -------- */
+      // Columns based on width
       if (width >= 1350) setColumns(4);
       else if (width >= 900) setColumns(3);
       else if (width >= 550) setColumns(2);
       else setColumns(1);
 
-      /* -------- Height → Dynamic Rows -------- */
-      const estimatedCardHeight = 290; 
-      // Adjust slightly if needed depending on your card height
-
-      const availableHeight = height * 0.75;
-      // Leaves space for title + nav + spacing
-
-      let calculatedRows = Math.floor(
-        availableHeight / estimatedCardHeight
-      );
-
-      // Keep it controlled (desktop remains clean)
-      calculatedRows = Math.max(1, Math.min(calculatedRows, 4));
-
-      setRows(calculatedRows);
+      // Rows: simpler fixed approach — avoids dynamic calculation bugs
+      // on small screens. Just fix to 2 rows on all sizes for clean pagination.
+      setRows(2);
     };
 
     updateLayout();
@@ -49,7 +33,6 @@ export default function ProjectsSection({ isDark }) {
   const ITEMS_PER_PAGE = columns * rows;
   const totalPages = Math.ceil(projectData.length / ITEMS_PER_PAGE);
 
-  /* Reset safely if resizing causes overflow */
   useEffect(() => {
     if (currentPage > totalPages - 1) {
       setCurrentPage(0);
@@ -57,10 +40,7 @@ export default function ProjectsSection({ isDark }) {
   }, [columns, rows, totalPages]);
 
   const startIndex = currentPage * ITEMS_PER_PAGE;
-  const currentProjects = projectData.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
-  );
+  const currentProjects = projectData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const nextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -76,30 +56,18 @@ export default function ProjectsSection({ isDark }) {
     }
   };
 
-  /* ---------------------------------- */
-  /*  Smooth Slide Animation            */
-  /* ---------------------------------- */
   const slideVariants = {
-    enter: (direction) => ({
-      x: direction > 0 ? "4vw" : "-4vw",
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction) => ({
-      x: direction < 0 ? "4vw" : "-4vw",
-      opacity: 0,
-    }),
+    enter: (direction) => ({ x: direction > 0 ? "4vw" : "-4vw", opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (direction) => ({ x: direction < 0 ? "4vw" : "-4vw", opacity: 0 }),
   };
 
   return (
     <div className="w-full flex flex-col items-center">
 
-      {/* ---------- Navigation ---------- */}
+      {/* ── Pagination Controls ── */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center md:justify-end w-full mb-4 gap-6">
+        <div className="flex items-center justify-center w-full mb-6 gap-6">
           <button
             onClick={prevPage}
             disabled={currentPage === 0}
@@ -107,19 +75,31 @@ export default function ProjectsSection({ isDark }) {
               currentPage === 0
                 ? "opacity-30 cursor-not-allowed"
                 : "hover:bg-[#137062] hover:text-white cursor-pointer"
-            } ${
-              isDark ? "text-white bg-white/10" : "text-black bg-black/10"
-            }`}
+            } ${isDark ? "text-white bg-white/10" : "text-black bg-black/10"}`}
           >
             <FaChevronLeft size={18} />
           </button>
 
-          <div
-            className={`text-sm tracking-wider ${
-              isDark ? "text-gray-400" : "text-gray-600"
-            }`}
-          >
-            {currentPage + 1} / {totalPages}
+          {/* Dot indicators */}
+          <div className="flex items-center gap-2">
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setDirection(i > currentPage ? 1 : -1);
+                  setCurrentPage(i);
+                }}
+                className="rounded-full transition-all duration-300"
+                style={{
+                  width: i === currentPage ? '24px' : '8px',
+                  height: '8px',
+                  background: i === currentPage
+                    ? '#137062'
+                    : (isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)'),
+                }}
+                aria-label={`Go to page ${i + 1}`}
+              />
+            ))}
           </div>
 
           <button
@@ -129,17 +109,21 @@ export default function ProjectsSection({ isDark }) {
               currentPage === totalPages - 1
                 ? "opacity-30 cursor-not-allowed"
                 : "hover:bg-[#137062] hover:text-white cursor-pointer"
-            } ${
-              isDark ? "text-white bg-white/10" : "text-black bg-black/10"
-            }`}
+            } ${isDark ? "text-white bg-white/10" : "text-black bg-black/10"}`}
           >
             <FaChevronRight size={18} />
           </button>
         </div>
       )}
 
-      {/* ---------- Grid Container ---------- */}
-      <div className="w-full overflow-hidden min-h-[55vh]">
+      {/* ── Grid Container ── */}
+      {/*
+        FIX: The original used `min-h-[55vh]` which caused layout collapse on mobile.
+        We use `auto` min-height here and let the cards define the height.
+        The grid uses justify-items-center to prevent cards from stretching weirdly.
+        Card width is now controlled inside ProjectCard via max-width/width constraints.
+      */}
+      <div className="w-full overflow-hidden">
         <AnimatePresence initial={false} custom={direction} mode="wait">
           <motion.div
             key={currentPage}
@@ -158,7 +142,8 @@ export default function ProjectsSection({ isDark }) {
               min-[550px]:grid-cols-2
               min-[900px]:grid-cols-3
               min-[1350px]:grid-cols-4
-              gap-6
+              gap-4
+              sm:gap-6
               w-full
               justify-items-center
             "
