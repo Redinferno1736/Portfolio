@@ -1,6 +1,24 @@
-// src/data/projects.js
-
 export const projectData = [
+  // --- Newly Added Projects ---
+  {
+    title: "ContractPulse",
+    description: "AI-powered fintech platform for contract analysis, obligation extraction, conflict detection, and risk forecasting using RoBERTa, DistilBERT, and Prophet.",
+    githubLink: "https://github.com/Redinferno1736/ContractPulse",
+    siteLink: "https://contract-pulse-delta.vercel.app/"
+  },
+  {
+    title: "NeoScore",
+    description: "Explainable AI credit scoring system for thin-file users using XGBoost, SHAP, and LLM-based financial insights with real-time simulation.",
+    githubLink: "https://github.com/Redinferno1736/NeoScore",
+    siteLink: ""
+  },
+  {
+    title: "DuneLens",
+    description: "Offroad semantic segmentation system using SegFormer-B2 and CNN ensemble with real-time prediction via FastAPI and Next.js.",
+    githubLink: "https://github.com/Redinferno1736/DuneLens",
+    siteLink: ""
+  },
+
   // --- Page 1 (Best AI & Web Projects) ---
   {
     title: "MoodQuest",
