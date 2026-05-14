@@ -10,7 +10,7 @@ export const projectData = [
     title: "NeoScore",
     description: "Explainable AI credit scoring system for thin-file users using XGBoost, SHAP, and LLM-based financial insights with real-time simulation.",
     githubLink: "https://github.com/Redinferno1736/NeoScore",
-    siteLink: ""
+    siteLink: "https://neoscore.vercel.app/"
   },
   {
     title: "DuneLens",
@@ -24,7 +24,13 @@ export const projectData = [
     title: "MoodQuest",
     description: "Real-time emotion recognition and mood tracking using efficient computer vision.",
     githubLink: "https://github.com/Redinferno1736/MoodQuest",
-    siteLink: "" 
+    siteLink: "https://mood-quest-zeta.vercel.app/" 
+  },
+  {
+    title: "CareBridgeAI",
+    description: "Medical chatbot connecting refugees with NGOs for immediate assistance.",
+    githubLink: "https://github.com/Redinferno1736/CareBridgeAI",
+    siteLink: "https://carebridgeai-peach.vercel.app/"
   },
   {
     title: "AlphaWave",
@@ -37,12 +43,6 @@ export const projectData = [
     description: "A complete platform for hosting, managing, and participating in hackathons.",
     githubLink: "https://github.com/Redinferno1736/HackArena",
     siteLink: "https://hackarena.onrender.com/"
-  },
-  {
-    title: "CareBridgeAI",
-    description: "Medical chatbot connecting refugees with NGOs for immediate assistance.",
-    githubLink: "https://github.com/Redinferno1736/CareBridgeAI",
-    siteLink: ""
   },
   {
     title: "FabrAIc",

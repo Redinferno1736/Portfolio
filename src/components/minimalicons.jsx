@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { track } from '@vercel/analytics'; 
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -37,6 +38,7 @@ const MinimalIcons = ({ items, className, isDark }) => {
           rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
           aria-label={item.label}
           variants={itemVariants}
+          onClick={() => { if (item.label === 'Resume') track('resume_download'); }}
           whileHover={{
             scale: 1.15,
             y: -5,
